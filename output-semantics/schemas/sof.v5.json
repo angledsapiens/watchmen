@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "watchmen/sof.v5",
+  "type": "object",
+  "required": [
+    "sof_id",
+    "schema_version",
+    "ts_emitted",
+    "source_watchman",
+    "subject",
+    "claim",
+    "confidence",
+    "severity",
+    "persistence",
+    "integrity"
+  ],
+  "properties": {
+    "sof_id": { "type": "string" },
+    "schema_version": { "const": "5.0" },
+    "ts_emitted": { "type": "number" },
+    "source_watchman": { "type": "string" },
+
+    "subject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "asset"],
+          "properties": { "kind": { "const": "asset" }, "asset": { "type": "string" } }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "name"],
+          "properties": { "kind": { "const": "protocol" }, "name": { "type": "string" } }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "venue"],
+          "properties": { "kind": { "const": "market" }, "venue": { "type": "string" } }
+        }
+      ]
+    },
+
+    "claim": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["deviation", "regime_shift", "liquidity_stress"] },
+        "metric": { "type": "string" },
+        "magnitude": { "type": "number" },
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "depth_change_pct": { "type": "number" }
+      }
+    },
+
+    "confidence": {
+      "type": "object",
+      "required": ["probability", "model_agreement", "data_freshness", "historical_recurrence"],
+      "properties": {
+        "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "model_agreement": { "type": "number", "minimum": 0, "maximum": 1 },
+        "data_freshness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "historical_recurrence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+
+    "severity": {
+      "enum": ["informational", "low", "elevated", "high", "critical"]
+    },
+
+    "persistence": {
+      "type": "object",
+      "required": ["expected_half_life_ms", "decay_model"],
+      "properties": {
+        "expected_half_life_ms": { "type": "number" },
+        "decay_model": { "enum": ["exponential", "step", "event_reset"] }
+      }
+    },
+
+    "integrity": {
+      "type": "object",
+      "required": ["content_hash", "signed_by", "signature"],
+      "properties": {
+        "content_hash": { "type": "string" },
+        "signed_by": { "type": "string" },
+        "signature": { "type": "string" }
+      }
+    }
+  }
+}

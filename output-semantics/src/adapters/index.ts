@@ -1,0 +1,1 @@
+export { emitToStdout } from "./stdout";

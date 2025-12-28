@@ -4,6 +4,8 @@
 
   "workspaces": [
     "memory",
+    "normalcy-baselines",
+    "claims-beliefs",
     "wm-int"
   ],
 

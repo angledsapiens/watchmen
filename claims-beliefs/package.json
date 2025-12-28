@@ -1,6 +1,11 @@
 {
   "name": "@watchmen/claims-beliefs",
   "version": "0.1.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest"

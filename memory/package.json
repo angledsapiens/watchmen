@@ -1,5 +1,5 @@
 {
-  "name": "memory",
+  "name": "@watchmen/memory",
   "version": "0.1.0",
   "description": "Watchmen Memory Model",
   "main": "./dist/index.js",

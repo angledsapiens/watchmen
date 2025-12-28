@@ -1,22 +1,23 @@
-import { db } from "../storage/sqlite"
+import { storage } from "../storage/sqlite";
 
 export type EpisodicInsert = {
-  id: string
-  ts: number
-  block_ref: object | null
-  kind: string
-  subject: object
-  payload: object
-  units?: object
-  source: object
-  provenance: object
-  confidence: number
-  refs: string[]
-  hash?: string
-}
+  id: string;
+  ts: number;
+  block_ref: object | null;
+  kind: string;
+  subject: object;
+  payload: object;
+  units?: object;
+  source: object;
+  provenance: object;
+  confidence: number;
+  refs: string[];
+  hash?: string;
+};
 
 export function ingestEpisodic(obs: EpisodicInsert) {
-  db.prepare(`
+  storage.run(
+    `
     INSERT INTO episodic (
       id,
       ts,
@@ -31,18 +32,20 @@ export function ingestEpisodic(obs: EpisodicInsert) {
       refs,
       hash
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    obs.id,
-    obs.ts,
-    JSON.stringify(obs.block_ref),
-    obs.kind,
-    JSON.stringify(obs.subject),
-    JSON.stringify(obs.payload),
-    JSON.stringify(obs.units ?? null),
-    JSON.stringify(obs.source),
-    JSON.stringify(obs.provenance),
-    obs.confidence,
-    JSON.stringify(obs.refs),
-    obs.hash ?? null
-  )
+    `,
+    [
+      obs.id,
+      obs.ts,
+      JSON.stringify(obs.block_ref),
+      obs.kind,
+      JSON.stringify(obs.subject),
+      JSON.stringify(obs.payload),
+      JSON.stringify(obs.units ?? null),
+      JSON.stringify(obs.source),
+      JSON.stringify(obs.provenance),
+      obs.confidence,
+      JSON.stringify(obs.refs),
+      obs.hash ?? null,
+    ]
+  );
 }

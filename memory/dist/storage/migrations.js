@@ -1,6 +1,7 @@
-import { storage } from "./sqlite";
-
-storage.run(`
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const sqlite_1 = require("./sqlite");
+sqlite_1.storage.run(`
 CREATE TABLE IF NOT EXISTS episodic (
   id TEXT PRIMARY KEY,
   ts INTEGER,
@@ -56,3 +57,4 @@ CREATE TABLE IF NOT EXISTS narrative (
   hash TEXT
 );
 `);
+//# sourceMappingURL=migrations.js.map

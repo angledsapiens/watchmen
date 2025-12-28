@@ -1,7 +1,29 @@
-import Database from "better-sqlite3"
+import Database from "better-sqlite3";
 
-// Single SQLite database file for WM-01 memory
-export const db = new Database("watchmen-memory.db")
+const db = new Database("watchmen-memory.db");
 
-// Safer concurrent behavior (even locally)
-db.pragma("journal_mode = WAL")
+/* ----------------------------- */
+/* Generic helpers               */
+/* ----------------------------- */
+
+function getOne<T>(sql: string, params: any[] = []): T | undefined {
+  return db.prepare(sql).get(...params) as T | undefined;
+}
+
+function getMany<T>(sql: string, params: any[] = []): T[] {
+  return db.prepare(sql).all(...params) as T[];
+}
+
+function run(sql: string, params: any[] = []) {
+  db.prepare(sql).run(...params);
+}
+
+/* ----------------------------- */
+/* Public storage API            */
+/* ----------------------------- */
+
+export const storage = {
+  getOne,
+  getMany,
+  run,
+};

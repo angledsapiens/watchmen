@@ -1,31 +1,36 @@
-import { db } from "../storage/sqlite"
+import { storage } from "../storage/sqlite";
 
 export function getEpisodicById(id: string) {
-  return db
-    .prepare("SELECT * FROM episodic WHERE id = ?")
-    .get(id)
+  return storage.getOne(
+    "SELECT * FROM episodic WHERE id = ?",
+    [id]
+  );
 }
 
 export function listEpisodic(limit = 100) {
-  return db
-    .prepare("SELECT * FROM episodic ORDER BY ts DESC LIMIT ?")
-    .all(limit)
+  return storage.getMany(
+    "SELECT * FROM episodic ORDER BY ts DESC LIMIT ?",
+    [limit]
+  );
 }
 
 export function listTemporal(limit = 100) {
-  return db
-    .prepare("SELECT * FROM temporal ORDER BY window DESC LIMIT ?")
-    .all(limit)
+  return storage.getMany(
+    "SELECT * FROM temporal ORDER BY window DESC LIMIT ?",
+    [limit]
+  );
 }
 
 export function listSemantic(limit = 100) {
-  return db
-    .prepare("SELECT * FROM semantic ORDER BY updated_ts DESC LIMIT ?")
-    .all(limit)
+  return storage.getMany(
+    "SELECT * FROM semantic ORDER BY updated_ts DESC LIMIT ?",
+    [limit]
+  );
 }
 
 export function listNarrative(limit = 100) {
-  return db
-    .prepare("SELECT * FROM narrative ORDER BY created_ts DESC LIMIT ?")
-    .all(limit)
+  return storage.getMany(
+    "SELECT * FROM narrative ORDER BY created_ts DESC LIMIT ?",
+    [limit]
+  );
 }

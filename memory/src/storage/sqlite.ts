@@ -3,7 +3,7 @@ import Database from "better-sqlite3";
 const db = new Database("watchmen-memory.db");
 
 /* ----------------------------- */
-/* Generic helpers               */
+/* Internal helpers              */
 /* ----------------------------- */
 
 function getOne<T>(sql: string, params: any[] = []): T | undefined {
@@ -18,6 +18,10 @@ function run(sql: string, params: any[] = []) {
   db.prepare(sql).run(...params);
 }
 
+function exec(sql: string) {
+  db.exec(sql);
+}
+
 /* ----------------------------- */
 /* Public storage API            */
 /* ----------------------------- */
@@ -26,4 +30,5 @@ export const storage = {
   getOne,
   getMany,
   run,
+  exec,
 };

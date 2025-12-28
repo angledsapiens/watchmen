@@ -1,6 +1,6 @@
 import { storage } from "./sqlite";
 
-storage.run(`
+storage.exec(`
 CREATE TABLE IF NOT EXISTS episodic (
   id TEXT PRIMARY KEY,
   ts INTEGER,

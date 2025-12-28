@@ -1,3 +1,5 @@
-require("./storage/migrations")
+require("./storage/migrations");
 
-console.log("Memory initialized")
+export * from "./public";
+
+console.log("Memory initialized");

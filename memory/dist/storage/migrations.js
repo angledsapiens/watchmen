@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sqlite_1 = require("./sqlite");
-sqlite_1.storage.run(`
+sqlite_1.storage.exec(`
 CREATE TABLE IF NOT EXISTS episodic (
   id TEXT PRIMARY KEY,
   ts INTEGER,

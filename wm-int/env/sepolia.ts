@@ -1,6 +1,8 @@
 import type { WatchmenAdapters } from "../orchestrator/types";
 
 import { WM01MemoryAdapter } from "../adapters/real/memory.wm01";
+import { collectWM04Signal } from "../adapters/real/agent.wm04";
+import { WM03ClaimsAdapter } from "../adapters/real/claims.wm03";
 
 import {
   StdoutSOFEmitter,
@@ -9,8 +11,6 @@ import {
 import { composeSOFEmitters } from "../adapters/real/sof/composed";
 
 import { LocalBaselinesAdapter } from "../adapters/local/baselines.local";
-import { LocalClaimsAdapter } from "../adapters/local/claims.local";
-
 const sofEmitter = composeSOFEmitters([
   StdoutSOFEmitter,
   ...(process.env.SOF_WEBHOOK_URL
@@ -19,8 +19,8 @@ const sofEmitter = composeSOFEmitters([
 ]);
 
 export const SepoliaEnvAdapters: WatchmenAdapters = {
-  baselines: LocalBaselinesAdapter, // still stub
-  claims: LocalClaimsAdapter,       // still stub
-  memory: WM01MemoryAdapter,        // REAL
-  sof: sofEmitter,                  // REAL
+  baselines: LocalBaselinesAdapter,
+  claims: WM03ClaimsAdapter,
+  memory: WM01MemoryAdapter,
+  sof: sofEmitter,
 };

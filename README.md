@@ -38,12 +38,12 @@ Version 1.0 is modular, deterministic, testnet-verified.
 
 ## Modules
 
-WM-01 Memory
-WM-02 Normalcy and baselines
-WM-03 Claims and beliefs
-WM-04 User spawned Watchmen
-WM-05 Output semantics
-WM-INT Integration
+- WM-01 Memory
+- WM-02 Normalcy and baselines
+- WM-03 Claims and beliefs
+- WM-04 User spawned Watchmen
+- WM-05 Output semantics
+- WM-INT Integration
 
 ---
 

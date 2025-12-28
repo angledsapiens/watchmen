@@ -1,18 +1,27 @@
 /**
- * WM-01 Memory Contract
- *
- * Defines the integration-facing interface only.
- * No implementation assumptions allowed.
+ * WM-01 Memory — Integration Contract
+ * Authoritative for all writes into Watchmen memory.
  */
 
-export interface MemoryWriteRequest {
-  id: string;
-  ts: number;
-  subject: string;
-  payload: unknown;
-  source: string;
+export type MemorySubject =
+  | { kind: "asset"; asset: string }
+  | { kind: "protocol"; protocol: string }
+  | { kind: "address"; address: string }
+  | { kind: "system"; name: string };
+
+export interface MemoryEntry {
+  id: string;                // deterministic or content-hash
+  ts_ms: number;             // epoch millis
+  subject: MemorySubject;
+  payload: unknown;          // opaque to WM-INT
+  source: string;            // watchman / adapter id
+}
+
+export interface MemoryWriteResult {
+  stored: boolean;
+  deduped?: boolean;
 }
 
 export interface MemoryAdapter {
-  write(entry: MemoryWriteRequest): Promise<void>;
+  write(entry: MemoryEntry): Promise<MemoryWriteResult>;
 }

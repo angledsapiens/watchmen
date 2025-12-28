@@ -1,0 +1,12 @@
+{
+  "name": "@watchmen/wm-int",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WM-INT — Watchmen Integration layer",
+  "scripts": {
+    "build": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
